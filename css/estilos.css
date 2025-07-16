@@ -1,0 +1,247 @@
+/* css/style.css */
+
+/* Fuente y reset básico */
+
+body {
+  
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('/img/fondo.jpg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: #fcfbf7;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: -1;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  color: #333;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Encabezado */
+header {
+  background: linear-gradient(135deg, #f8d3e3, #d0e8f2);
+  padding: 5px 0;
+  text-align: center;
+  border-bottom: 3px solid #e0e0e0;
+  margin-bottom: 30px;
+}
+
+header img.logo {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  animation: fadeInLogo 1.2s ease-in-out;
+}
+
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Productos */
+.producto {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #fffafc;
+  border: 1px solid #f0d9e7;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
+}
+
+.producto:hover {
+  transform: scale(1.01);
+}
+
+.producto img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.producto label {
+  display: block;
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.cantidad {
+  width: 60px;
+  margin-left: 8px;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Botones */
+button {
+  background-color: #a8dadc;
+  color: #333;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #82cbb7;
+  color: #fff;
+}
+
+/* Formularios */
+.form-group {
+  margin-bottom: 20px;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  color: #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    font-size: 17px;
+  }
+
+  .producto {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .producto img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+  }
+
+  .producto label {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .cantidad {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  .form-group input {
+    font-size: 18px;
+  }
+
+  header img.logo {
+    width: 220px;
+  }
+}
+
+/* Alias box */
+#aliasBox {
+  font-size: 14px;
+  background-color: #e5f3f2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 8px;
+  color: #444;
+}
+
+/* Total */
+#total {
+  background-color: #a8dadc;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+  color: #444;
+}
+
+/* Separadores suaves */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 30px 0;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #fffafc;
+  border: 1px solid #f0d9e7;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
+
+}
