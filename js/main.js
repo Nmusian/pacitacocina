@@ -83,8 +83,12 @@ function renderProductos() {
       <div style="flex: 1;">
         <strong>${producto.titulo}</strong><br>
         <small>${producto.descripcion}</small><br><br>
-        ${producto.opciones.map((op, i) => `
-          <label><input type="radio" name="${producto.nombre}" value="${op.desc}" data-precio="${op.precio}" data-descripcion="${op.desc}"> ${op.desc} – $${op.precio} <input class="cantidad" type="number" min="0" value="0"></label>
+        ${producto.opciones.map((op) => `
+          <label>
+            <input type="radio" name="${producto.nombre}" value="${op.desc}" data-precio="${op.precio}" data-descripcion="${op.desc}">
+            ${op.desc} – $${op.precio}
+            <input class="cantidad" type="number" min="0" value="0">
+          </label>
         `).join('')}
       </div>
     `;
@@ -117,24 +121,30 @@ function renderProductos() {
       }
     });
   });
+
   cargarSeleccionGuardada();
   calcularTotal();
 
-  const mensajeEnviado = localStorage.getItem('pedidoEnviado');
-  if (mensajeEnviado === 'true') {
+  // ✅ Mostrar cartel si venís de WhatsApp
+  if (localStorage.getItem('pedidoEnviado') === 'true') {
     const mensajeDiv = document.createElement('div');
-    mensajeDiv.textContent = '¡Pedido enviado con éxito!';
+    mensajeDiv.textContent = '✅ ¡Tu pedido fue enviado con éxito!';
     mensajeDiv.style.color = 'green';
     mensajeDiv.style.fontWeight = 'bold';
     mensajeDiv.style.textAlign = 'center';
     mensajeDiv.style.margin = '10px auto';
     form.parentElement.insertBefore(mensajeDiv, form);
+
+    // limpiar carrito y resetear marca
+    localStorage.removeItem('carrito');
     setTimeout(() => {
       mensajeDiv.remove();
       localStorage.removeItem('pedidoEnviado');
+      window.location.reload();
     }, 3000);
   }
 }
+
 
 function calcularTotal() {
   let total = 0;
