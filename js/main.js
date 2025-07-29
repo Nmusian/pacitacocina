@@ -247,12 +247,20 @@ function renderCarrito() {
     const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
     localStorage.setItem('pedidoEnviado', 'true');
-    localStorage.removeItem('carrito');
+    
     window.location.href = link;
   });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('pedidoEnviado') === 'true') {
+    // Si estamos en carrito, redirigir directamente al menú
+    if (window.location.pathname.includes('carrito.html')) {
+      window.location.href = 'index.html';
+      return;
+    }
+  }
+
   if (document.getElementById('formProductos')) {
     renderProductos();
   } else if (document.getElementById('carrito')) {
