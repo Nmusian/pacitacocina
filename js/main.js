@@ -254,8 +254,8 @@ function renderCarrito() {
 
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('pedidoEnviado') === 'true') {
-    // Si estamos en carrito, redirigir directamente al menú
-    if (window.location.pathname.includes('carrito.html')) {
+    // Si estamos en carrito o volvemos sin reload
+    if (!window.location.pathname.includes('index.html')) {
       window.location.href = 'index.html';
       return;
     }
@@ -267,3 +267,4 @@ window.addEventListener('DOMContentLoaded', () => {
     renderCarrito();
   }
 });
+

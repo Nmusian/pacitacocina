@@ -25,5 +25,14 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script>
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible' && localStorage.getItem('pedidoEnviado') === 'true') {
+      window.location.reload(); // fuerza ejecución y muestra mensaje
+    }
+  });
+</script>
+
+
 </body>
 </html>
