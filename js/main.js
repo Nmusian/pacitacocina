@@ -86,8 +86,17 @@ const getCarrito = () => JSON.parse(localStorage.getItem('carrito')) || [];
 
 const guardarCarrito = (data) => localStorage.setItem('carrito', JSON.stringify(data));
 
-const buildMensajeWhatsApp = ({ nombre, telefono, pago, resumen, total }) => {
-  let mensaje = `Hola! Soy ${nombre} (${telefono}) y quiero hacer un pedido:\n\n${resumen}\nTOTAL: ${formatPrecio(total)}\n\nMétodo de pago: ${pago}`;
+const buildDireccion = ({ calle, numero, esEdificio, piso, portero }) => {
+  let dir = `${calle} ${numero}`;
+  if (esEdificio) {
+    if (piso) dir += `, Piso ${piso}`;
+    if (portero) dir += `, Portero ${portero}`;
+  }
+  return dir;
+};
+
+const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, total }) => {
+  let mensaje = `Hola! Soy ${nombre} (${telefono}) y quiero hacer un pedido:\n\n${resumen}\nTOTAL: ${formatPrecio(total)}\n\n📍 Dirección de entrega: ${direccion}\n💳 Método de pago: ${pago}`;
   if (pago === 'Transferencia') mensaje += '\nAlias: alias.negocio.mp';
   mensaje += '\n\n¡Gracias!';
   return mensaje;
@@ -304,6 +313,24 @@ function renderCarrito() {
         <input type="text" id="telefono" required placeholder="Ej: 3472 123456">
       </div>
       <div class="form-group">
+        <label>Dirección de entrega:</label>
+        <div class="direccion-fila">
+          <input type="text" id="calle" required placeholder="Calle" style="flex:2">
+          <input type="text" id="numeroCalle" required placeholder="Número" style="flex:1">
+        </div>
+        <div class="edificio-toggle">
+          <label class="toggle-label">
+            <input type="checkbox" id="esEdificio"> ¿Es edificio?
+          </label>
+        </div>
+        <div id="edificioFields" style="display:none;">
+          <div class="direccion-fila" style="margin-top:10px;">
+            <input type="text" id="piso" placeholder="Piso (ej: 3°)" style="flex:1">
+            <input type="text" id="portero" placeholder="Portero / Depto (ej: B)" style="flex:1">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label>Método de pago:</label>
         <div class="opciones-pago">
           <label><input type="radio" name="pago" value="Efectivo" checked> Efectivo</label>
@@ -330,17 +357,27 @@ TOTAL: ${formatPrecio(total)}</pre>
     });
   });
 
+  document.getElementById('esEdificio').addEventListener('change', function () {
+    document.getElementById('edificioFields').style.display = this.checked ? 'block' : 'none';
+  });
+
   document.getElementById('btnEnviar').addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
+    const calle = document.getElementById('calle').value.trim();
+    const numeroCalle = document.getElementById('numeroCalle').value.trim();
+    const esEdificio = document.getElementById('esEdificio').checked;
+    const piso = esEdificio ? document.getElementById('piso').value.trim() : '';
+    const portero = esEdificio ? document.getElementById('portero').value.trim() : '';
     const pago = document.querySelector('input[name="pago"]:checked').value;
 
-    if (!nombre || !telefono) {
-      alert('Por favor completá tu nombre y número de contacto.');
+    if (!nombre || !telefono || !calle || !numeroCalle) {
+      alert('Por favor completá tu nombre, teléfono y dirección.');
       return;
     }
 
-    const mensaje = buildMensajeWhatsApp({ nombre, telefono, pago, resumen, total });
+    const direccion = buildDireccion({ calle, numero: numeroCalle, esEdificio, piso, portero });
+    const mensaje = buildMensajeWhatsApp({ nombre, telefono, direccion, pago, resumen, total });
     const link = `https://wa.me/5493472552985?text=${encodeURIComponent(mensaje)}`;
 
     localStorage.setItem('pedidoEnviado', 'true');
