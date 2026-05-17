@@ -1,9 +1,20 @@
-/* css/style.css */
+/* ============================================================
+   VARIABLES Y RESET
+   ============================================================ */
 
-/* Fuente y reset básico */
+:root {
+  --color-primario: #a8dadc;
+  --color-primario-hover: #82cbb7;
+  --color-fondo-card: #fffafc;
+  --color-borde-card: #f0d9e7;
+  --color-texto: #333;
+  --color-texto-suave: #666;
+  --color-exito: #2e7d5e;
+  --radio: 12px;
+  --sombra: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
 
 body {
-  
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
@@ -13,21 +24,20 @@ body {
   background-position: center;
   background-attachment: fixed;
   background-color: #fcfbf7;
-  color: #333;
-  position: relative;
-  z-index: 1;
+  color: var(--color-texto);
 }
 
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background-color: rgba(255, 255, 255, 0.7);
   z-index: -1;
 }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 
 .container {
   max-width: 900px;
@@ -36,12 +46,22 @@ body::before {
 }
 
 h1, h2, h3 {
-  color: #333;
+  color: var(--color-texto);
   text-align: center;
   font-weight: 600;
 }
 
-/* Encabezado */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 30px 0;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
 header {
   background: linear-gradient(135deg, #f8d3e3, #d0e8f2);
   padding: 5px 0;
@@ -61,27 +81,61 @@ header img.logo {
 }
 
 @keyframes fadeInLogo {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-/* Productos */
+/* ============================================================
+   FILTROS DE CATEGORÍAS
+   ============================================================ */
+
+#filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.filtro-btn {
+  background-color: #f0f0f0;
+  color: var(--color-texto);
+  border: 2px solid transparent;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+  width: auto;
+}
+
+.filtro-btn:hover {
+  background-color: var(--color-primario);
+  color: #fff;
+}
+
+.filtro-btn.activo {
+  background-color: var(--color-primario-hover);
+  color: #fff;
+  border-color: var(--color-primario-hover);
+}
+
+/* ============================================================
+   PRODUCTOS
+   ============================================================ */
+
 .producto {
   display: flex;
   align-items: center;
   gap: 20px;
-  background-color: #fffafc;
-  border: 1px solid #f0d9e7;
-  border-radius: 12px;
+  background-color: var(--color-fondo-card);
+  border: 1px solid var(--color-borde-card);
+  border-radius: var(--radio);
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--sombra);
   transition: transform 0.2s ease;
 }
 
@@ -95,6 +149,7 @@ header img.logo {
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid #ddd;
+  flex-shrink: 0;
 }
 
 .producto label {
@@ -111,9 +166,13 @@ header img.logo {
   border: 1px solid #ccc;
 }
 
-/* Botones */
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
 button {
-  background-color: #a8dadc;
+  display: block;
+  background-color: var(--color-primario);
   color: #333;
   padding: 14px 22px;
   border: none;
@@ -123,19 +182,57 @@ button {
   font-size: 16px;
   transition: all 0.3s ease;
   margin-top: 10px;
+  width: 100%;
 }
 
 button:hover {
-  background-color: #82cbb7;
+  background-color: var(--color-primario-hover);
   color: #fff;
 }
 
-/* Formularios */
-.form-group {
-  margin-bottom: 20px;
+.btn-secundario {
+  background-color: #e0e0e0;
+  color: #444;
 }
 
-input[type="text"], input[type="number"] {
+.btn-secundario:hover {
+  background-color: #ccc;
+  color: #333;
+}
+
+/* ============================================================
+   FORMULARIOS
+   ============================================================ */
+
+.form-group {
+  background-color: var(--color-fondo-card);
+  border: 1px solid var(--color-borde-card);
+  border-radius: var(--radio);
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--sombra);
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.opciones-pago {
+  display: flex;
+  gap: 20px;
+}
+
+.opciones-pago label {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input[type="text"],
+input[type="number"] {
   padding: 12px;
   width: 100%;
   border: 1px solid #ccc;
@@ -152,20 +249,64 @@ pre {
   white-space: pre-wrap;
   font-family: monospace;
   color: #444;
+  margin: 0;
 }
 
-/* Responsive */
+/* ============================================================
+   TOTAL
+   ============================================================ */
+
+#total {
+  background-color: var(--color-primario);
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+  color: #444;
+}
+
+/* ============================================================
+   ALIAS BOX
+   ============================================================ */
+
+#aliasBox {
+  font-size: 14px;
+  background-color: #e5f3f2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* ============================================================
+   MENSAJE DE ÉXITO
+   ============================================================ */
+
+.mensaje-exito {
+  color: var(--color-exito);
+  font-weight: bold;
+  text-align: center;
+  background: #e6f4ee;
+  border: 1px solid #b2dfc8;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 10px auto 20px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
 @media (max-width: 768px) {
-  body {
-    font-size: 17px;
-  }
+  body { font-size: 17px; }
 
   .producto {
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 20px;
-    margin-bottom: 24px;
   }
 
   .producto img {
@@ -186,68 +327,19 @@ pre {
   }
 
   button {
-    width: 100%;
     font-size: 18px;
     padding: 16px;
   }
 
-  .form-group input {
-    font-size: 18px;
+  header img.logo { width: 220px; }
+
+  .filtro-btn {
+    font-size: 13px;
+    padding: 7px 14px;
   }
 
-  header img.logo {
-    width: 220px;
-  }
-
-  .form-group {
+  .opciones-pago {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    gap: 10px;
   }
-}
-
-/* Alias box */
-#aliasBox {
-  font-size: 14px;
-  background-color: #e5f3f2;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 8px;
-  color: #444;
-}
-
-/* Total */
-#total {
-  background-color: #a8dadc;
-  padding: 14px 22px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
-  color: #444;
-}
-
-/* Separadores suaves */
-hr {
-  border: none;
-  height: 1px;
-  background-color: #e0e0e0;
-  margin: 30px 0;
-}
-
-.form-group {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background-color: #fffafc;
-  border: 1px solid #f0d9e7;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease;
-
 }

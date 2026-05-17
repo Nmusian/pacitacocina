@@ -5,34 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pacita Cocina</title>
   <link rel="stylesheet" href="css/estilos.css" />
-   <link rel="icon" href="img/logo.png.png" type="image/png" />
-
+  <link rel="icon" href="img/logo.png.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <header>
-  <img src="img/logo.png.png" alt="Logo Pacita Cocina" class="logo">
-</header>
 
+  <header>
+    <img src="img/logo.png.png" alt="Logo Pacita Cocina" class="logo">
   </header>
 
   <div class="container" id="productos">
-   <div id="mensajeConfirmacion" style="display:none;">✅ ¡Pedido realizado con éxito, Gracias!</div>
-
+    <div id="filtros"></div>
     <form id="formProductos"></form>
-    <div class="total" id="total">Total: $0</div>
-    <button type="button" onclick="irAlCarrito()">Ir al Carrito</button>
+    <div id="total">Total: $0</div>
+    <button type="button" onclick="irAlCarrito()">Ir al Carrito 🛒</button>
   </div>
 
   <script src="js/main.js"></script>
-  <script>
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible' && localStorage.getItem('pedidoEnviado') === 'true') {
-      window.location.reload(); // fuerza ejecución y muestra mensaje
-    }
-  });
-</script>
-
 
 </body>
 </html>
