@@ -277,7 +277,7 @@ function irAlCarrito() {
   }));
 
   guardarCarrito(seleccionados);
-  window.location.href = 'carrito.html';
+  window.location.href = '/carrito';
 }
 
 // ============================================================
@@ -346,7 +346,7 @@ function renderCarrito() {
 TOTAL: ${formatPrecio(total)}</pre>
       </div>
       <button type="button" id="btnEnviar">Enviar Pedido por WhatsApp</button>
-      <button type="button" onclick="window.location.href='index.html'" class="btn-secundario">← Volver al Menú</button>
+      <button type="button" onclick="window.location.href='/'" class="btn-secundario">← Volver al Menú</button>
     </div>
   `;
 
@@ -392,8 +392,8 @@ TOTAL: ${formatPrecio(total)}</pre>
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('pedidoEnviado') === 'true' &&
       !window.location.pathname.includes('index.html') &&
-      !window.location.pathname.endsWith('/')) {
-    window.location.href = 'index.html';
+      window.location.pathname !== '/') {
+    window.location.href = '/';
     return;
   }
 
