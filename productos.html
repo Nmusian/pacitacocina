@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pacita Cocina</title>
+  <title>Pacita Cocina – Menú</title>
   <link rel="stylesheet" href="css/estilos.css" />
   <link rel="icon" href="img/logo.png.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,9 +14,11 @@
     <img src="img/logo.png.png" alt="Logo Pacita Cocina" class="logo">
   </header>
 
-  <div class="container">
-    <p class="home-subtitulo">¿Qué querés pedir hoy?</p>
-    <div class="categorias-grid" id="categoriasGrid"></div>
+  <div class="container" id="productos">
+    <div id="filtros"></div>
+    <form id="formProductos"></form>
+    <div id="total">Total: $0</div>
+    <button type="button" onclick="irAlCarrito()">Ir al Carrito 🛒</button>
   </div>
 
   <script src="js/main.js"></script>

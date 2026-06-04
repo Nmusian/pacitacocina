@@ -450,8 +450,8 @@ TOTAL: ${formatPrecio(total)}</pre>
 
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('pedidoEnviado') === 'true' &&
-      !window.location.pathname.includes('index.html') &&
-      window.location.pathname !== '/') {
+      window.location.pathname !== '/' &&
+      !window.location.pathname.endsWith('index.html')) {
     window.location.href = '/';
     return;
   }
@@ -459,7 +459,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('categoriasGrid')) {
     renderCategoriasHome();
   } else if (document.getElementById('formProductos')) {
-    // Leer categoría desde URL: /productos?cat=sorrentinos
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('cat');
     renderProductos(catParam);
