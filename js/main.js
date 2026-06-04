@@ -69,7 +69,36 @@ const productos = [
 // CATEGORÍAS
 // ============================================================
 
-const categorias = [
+// Categorías para la pantalla de inicio
+const categoriasHome = [
+  {
+    id: 'sorrentinos',
+    label: 'Sorrentinos',
+    emoji: '🍝',
+    imagen: 'img/sorrentinos-mp.webp'
+  },
+  {
+    id: 'fideos',
+    label: 'Fideos Caseros',
+    emoji: '🍜',
+    imagen: 'img/sorrentinos-mp.webp'
+  },
+  {
+    id: 'pizzas',
+    label: 'Pizzas',
+    emoji: '🍕',
+    imagen: 'img/sorrentinos-mp.webp'
+  },
+  {
+    id: 'focaccias',
+    label: 'Focaccias',
+    emoji: '🫓',
+    imagen: 'img/sorrentinos-mp.webp'
+  }
+];
+
+// Categorías para los filtros dentro de la página de productos
+const categoriasFiltro = [
   { id: 'todas', label: 'Todas' },
   { id: 'carne', label: '🥩 Carne' },
   { id: 'verdura', label: '🥬 Verdura' },
@@ -199,7 +228,7 @@ function renderFiltros() {
   const filtrosDiv = document.getElementById('filtros');
   if (!filtrosDiv) return;
 
-  categorias.forEach(cat => {
+  categoriasFiltro.forEach(cat => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = cat.label;
@@ -224,12 +253,41 @@ function filtrarProductos(categoriaId) {
 }
 
 // ============================================================
+// RENDER PANTALLA DE INICIO
+// ============================================================
+
+function renderCategoriasHome() {
+  const grid = document.getElementById('categoriasGrid');
+  if (!grid) return;
+
+  categoriasHome.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'categoria-card';
+    card.style.backgroundImage = `url('${cat.imagen}')`;
+    card.innerHTML = `<div class="categoria-overlay"></div>
+      <span class="categoria-label">${cat.emoji} ${cat.label}</span>`;
+    card.addEventListener('click', () => {
+      window.location.href = `/productos?cat=${cat.id}`;
+    });
+    grid.appendChild(card);
+  });
+}
+
+// ============================================================
 // RENDER PRINCIPAL - PÁGINA INDEX
 // ============================================================
 
-function renderProductos() {
+function renderProductos(categoriaInicial = null) {
   const form = document.getElementById('formProductos');
   form.innerHTML = '';
+
+  // Botón volver al inicio
+  const btnVolver = document.createElement('button');
+  btnVolver.type = 'button';
+  btnVolver.className = 'btn-secundario btn-volver';
+  btnVolver.innerHTML = '← Volver';
+  btnVolver.addEventListener('click', () => window.location.href = '/');
+  form.parentElement.insertBefore(btnVolver, form.previousElementSibling);
 
   renderFiltros();
 
@@ -243,6 +301,16 @@ function renderProductos() {
   });
 
   document.querySelectorAll('input[type="checkbox"][name]').forEach(agregarEventosCheckbox);
+
+  // Aplicar filtro inicial si viene de la home
+  if (categoriaInicial) {
+    const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoriaInicial}"]`);
+    if (btnActivo) {
+      document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+      btnActivo.classList.add('activo');
+      filtrarProductos(categoriaInicial);
+    }
+  }
 
   cargarSeleccionGuardada();
   calcularTotal();
@@ -388,8 +456,16 @@ window.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  if (document.getElementById('formProductos')) renderProductos();
-  else if (document.getElementById('carrito')) renderCarrito();
+  if (document.getElementById('categoriasGrid')) {
+    renderCategoriasHome();
+  } else if (document.getElementById('formProductos')) {
+    // Leer categoría desde URL: /productos?cat=sorrentinos
+    const params = new URLSearchParams(window.location.search);
+    const catParam = params.get('cat');
+    renderProductos(catParam);
+  } else if (document.getElementById('carrito')) {
+    renderCarrito();
+  }
 });
 
 document.addEventListener('visibilitychange', () => {
