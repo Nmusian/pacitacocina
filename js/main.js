@@ -107,12 +107,12 @@ const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, tota
 // ============================================================
 
 function calcularTotal() {
-  const radiosChecked = document.querySelectorAll('input[type="radio"]:checked');
+  const checked = document.querySelectorAll('input[type="checkbox"][name]:checked');
   let total = 0;
 
-  radiosChecked.forEach((radio) => {
-    const precio = parseInt(radio.dataset.precio);
-    const cantidad = parseInt(radio.parentElement.querySelector('.cantidad').value) || 1;
+  checked.forEach((cb) => {
+    const precio = parseInt(cb.dataset.precio);
+    const cantidad = parseInt(cb.parentElement.querySelector('.cantidad').value) || 1;
     total += precio * cantidad;
   });
 
@@ -120,10 +120,10 @@ function calcularTotal() {
   if (totalEl) totalEl.textContent = `Total: ${formatPrecio(total)}`;
 }
 
-function crearRadioLabel(producto, opcion) {
+function crearCheckboxLabel(producto, opcion) {
   const label = document.createElement('label');
   label.innerHTML = `
-    <input type="radio" name="${producto.nombre}" value="${opcion.desc}"
+    <input type="checkbox" name="${producto.nombre}" value="${opcion.desc}"
       data-precio="${opcion.precio}" data-descripcion="${opcion.desc}">
     ${opcion.desc} – ${formatPrecio(opcion.precio)}
     <input class="cantidad" type="number" min="0" value="0">
@@ -145,7 +145,7 @@ function crearTarjetaProducto(producto) {
   info.innerHTML = `<strong>${producto.titulo}</strong><br><small>${producto.descripcion}</small><br><br>`;
 
   producto.opciones.forEach((op) => {
-    info.appendChild(crearRadioLabel(producto, op));
+    info.appendChild(crearCheckboxLabel(producto, op));
   });
 
   div.appendChild(img);
@@ -153,34 +153,25 @@ function crearTarjetaProducto(producto) {
   return div;
 }
 
-function agregarEventosRadio(radio) {
-  radio.addEventListener('change', () => {
-    const cantidadInput = radio.parentElement.querySelector('.cantidad');
-    if (!cantidadInput.value || parseInt(cantidadInput.value) <= 0) {
+function agregarEventosCheckbox(checkbox) {
+  checkbox.addEventListener('change', () => {
+    const cantidadInput = checkbox.parentElement.querySelector('.cantidad');
+    if (checkbox.checked && (!cantidadInput.value || parseInt(cantidadInput.value) <= 0)) {
       cantidadInput.value = 1;
     }
-    calcularTotal();
-  });
-
-  radio.addEventListener('click', function () {
-    if (this.previousChecked) {
-      this.checked = false;
-      this.previousChecked = false;
-      this.parentElement.querySelector('.cantidad').value = 0;
-      calcularTotal();
-    } else {
-      document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => r.previousChecked = false);
-      this.previousChecked = true;
+    if (!checkbox.checked) {
+      cantidadInput.value = 0;
     }
+    calcularTotal();
   });
 }
 
 function cargarSeleccionGuardada() {
   getCarrito().forEach(item => {
-    document.getElementsByName(item.nombre).forEach(radio => {
-      if (radio.value === item.descripcion) {
-        radio.checked = true;
-        radio.parentElement.querySelector('.cantidad').value = item.cantidad;
+    document.querySelectorAll(`input[type="checkbox"][name="${item.nombre}"]`).forEach(cb => {
+      if (cb.value === item.descripcion) {
+        cb.checked = true;
+        cb.parentElement.querySelector('.cantidad').value = item.cantidad;
       }
     });
   });
@@ -251,7 +242,7 @@ function renderProductos() {
     input.addEventListener('input', calcularTotal);
   });
 
-  document.querySelectorAll('input[type="radio"]').forEach(agregarEventosRadio);
+  document.querySelectorAll('input[type="checkbox"][name]').forEach(agregarEventosCheckbox);
 
   cargarSeleccionGuardada();
   calcularTotal();
@@ -262,18 +253,18 @@ function renderProductos() {
 }
 
 function irAlCarrito() {
-  const radiosChecked = document.querySelectorAll('input[type="radio"]:checked');
+  const checked = document.querySelectorAll('input[type="checkbox"][name]:checked');
 
-  if (radiosChecked.length === 0) {
+  if (checked.length === 0) {
     alert('Por favor, seleccioná al menos un producto.');
     return;
   }
 
-  const seleccionados = Array.from(radiosChecked).map(radio => ({
-    nombre: radio.name,
-    descripcion: radio.dataset.descripcion,
-    precio: parseInt(radio.dataset.precio),
-    cantidad: parseInt(radio.parentElement.querySelector('.cantidad').value) || 1
+  const seleccionados = Array.from(checked).map(cb => ({
+    nombre: cb.name,
+    descripcion: cb.dataset.descripcion,
+    precio: parseInt(cb.dataset.precio),
+    cantidad: parseInt(cb.parentElement.querySelector('.cantidad').value) || 1
   }));
 
   guardarCarrito(seleccionados);

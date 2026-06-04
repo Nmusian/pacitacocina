@@ -158,6 +158,15 @@ header img.logo {
   font-size: 15px;
 }
 
+.producto label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primario-hover);
+  cursor: pointer;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 .cantidad {
   width: 60px;
   margin-left: 8px;
