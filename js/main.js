@@ -192,19 +192,19 @@ const categoriasHome = [
     id: 'fideos',
     label: 'Fideos Caseros',
     emoji: '🍜',
-    imagen: 'img/Fideos-caseros.png'
+    imagen: 'img/sorrentinos-mp.webp'
   },
   {
     id: 'pizzas',
     label: 'Pizzas',
     emoji: '🍕',
-    imagen: 'img/Pizza-especial.png'
+    imagen: 'img/sorrentinos-mp.webp'
   },
   {
     id: 'focaccias',
     label: 'Focaccias',
     emoji: '🫓',
-    imagen: 'img/Focaccia.png.png'
+    imagen: 'img/sorrentinos-mp.webp'
   }
 ];
 
@@ -426,10 +426,6 @@ function renderProductos(categoriaInicial = null) {
 
   cargarSeleccionGuardada();
   calcularTotal();
-
-  if (localStorage.getItem('pedidoEnviado') === 'true') {
-    mostrarMensajePedidoEnviado(form);
-  }
 }
 
 function irAlCarrito() {
@@ -561,26 +557,24 @@ TOTAL: ${formatPrecio(total)}</pre>
 // ============================================================
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('pedidoEnviado') === 'true' &&
-      window.location.pathname !== '/' &&
-      !window.location.pathname.endsWith('index.html')) {
-    window.location.href = '/';
-    return;
-  }
-
   if (document.getElementById('categoriasGrid')) {
+    // Si volvemos de WhatsApp, limpiamos el estado y mostramos mensaje
+    if (localStorage.getItem('pedidoEnviado') === 'true') {
+      localStorage.removeItem('pedidoEnviado');
+      localStorage.removeItem('carrito');
+      const msg = document.createElement('div');
+      msg.className = 'mensaje-exito';
+      msg.textContent = '✅ ¡Tu pedido fue enviado con éxito! Nos contactamos pronto.';
+      document.querySelector('.container').prepend(msg);
+      setTimeout(() => msg.remove(), 4000);
+    }
     renderCategoriasHome();
+
   } else if (document.getElementById('formProductos')) {
     const params = new URLSearchParams(window.location.search);
-    const catParam = params.get('cat');
-    renderProductos(catParam);
+    renderProductos(params.get('cat'));
+
   } else if (document.getElementById('carrito')) {
     renderCarrito();
-  }
-});
-
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && localStorage.getItem('pedidoEnviado') === 'true') {
-    window.location.reload();
   }
 });
