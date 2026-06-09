@@ -81,19 +81,19 @@ const categoriasHome = [
     id: 'fideos',
     label: 'Fideos Caseros',
     emoji: '🍜',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Fideos-caseros.png'
   },
   {
     id: 'pizzas',
     label: 'Pizzas',
     emoji: '🍕',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Pizza-espepecial.png'
   },
   {
     id: 'focaccias',
-    label: 'Focaccias',
+    label: 'Malfattis',
     emoji: '🫓',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Malfatis-verdura.png'
   }
 ];
 
