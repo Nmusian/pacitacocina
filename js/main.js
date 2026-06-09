@@ -192,19 +192,19 @@ const categoriasHome = [
     id: 'fideos',
     label: 'Fideos Caseros',
     emoji: '🍜',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Fideos-caseros.png'
   },
   {
     id: 'pizzas',
     label: 'Pizzas',
     emoji: '🍕',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Pizza-especial.png'
   },
   {
     id: 'focaccias',
     label: 'Focaccias',
     emoji: '🫓',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/Focaccia.png.png'
   }
 ];
 
@@ -548,7 +548,8 @@ TOTAL: ${formatPrecio(total)}</pre>
     const link = `https://wa.me/5493472552985?text=${encodeURIComponent(mensaje)}`;
 
     localStorage.setItem('pedidoEnviado', 'true');
-    window.location.href = link;
+    window.open(link, '_blank');
+    window.location.href = '/';
   });
 }
 
