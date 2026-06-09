@@ -3,12 +3,14 @@
 // ============================================================
 
 const productos = [
+
+  // --- SORRENTINOS ---
   {
     nombre: 'sorrentinos1',
     titulo: 'Sorrentinos de ricota y cebolla',
     descripcion: 'Cebolla caramelizada y parmesano (opcional)',
     imagen: 'img/sorrentinos-mp - copia.webp',
-    categoria: 'verdura',
+    categoria: 'sorrentinos',
     opciones: [
       { desc: '1kg (32u)', precio: 5000 },
       { desc: '1/2kg (16u)', precio: 2700 },
@@ -20,7 +22,7 @@ const productos = [
     titulo: 'Sorrentinos ricota, jamón y queso',
     descripcion: 'Con manteca de salvia y nuez moscada',
     imagen: 'img/sorrentinos-mp.webp',
-    categoria: 'queso',
+    categoria: 'sorrentinos',
     opciones: [
       { desc: '1kg (32u)', precio: 4800 },
       { desc: '1/2kg (16u)', precio: 2600 },
@@ -32,7 +34,7 @@ const productos = [
     titulo: 'Sorrentinos de carne y espinaca',
     descripcion: 'Masa casera con relleno suave y sabroso',
     imagen: 'img/sorrentinos-mp.webp',
-    categoria: 'carne',
+    categoria: 'sorrentinos',
     opciones: [
       { desc: '1kg (48u)', precio: 4700 },
       { desc: '1/2kg (24u)', precio: 2500 },
@@ -44,7 +46,7 @@ const productos = [
     titulo: 'Sorrentinos de pollo y espinaca',
     descripcion: 'Ideal para servir con salsas suaves',
     imagen: 'img/sorrentinos-mp.webp',
-    categoria: 'carne',
+    categoria: 'sorrentinos',
     opciones: [
       { desc: '1kg (40u)', precio: 5100 },
       { desc: '1/2kg (20u)', precio: 2800 },
@@ -56,13 +58,122 @@ const productos = [
     titulo: 'Sorrentinos de bondiola desmechada',
     descripcion: 'Hechos a mano, súper suaves',
     imagen: 'img/sorrentinos-mp.webp',
-    categoria: 'carne',
+    categoria: 'sorrentinos',
     opciones: [
       { desc: '1kg', precio: 4200 },
       { desc: '1/2kg', precio: 2300 },
       { desc: '250g', precio: 1200 }
     ]
+  },
+
+  // --- FIDEOS CASEROS ---
+  {
+    nombre: 'fideos1',
+    titulo: 'Tallarines al huevo',
+    descripcion: 'Masa fresca, ideales con tuco o crema',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'fideos',
+    opciones: [
+      { desc: '1kg', precio: 3500 },
+      { desc: '1/2kg', precio: 1900 },
+      { desc: '250g', precio: 1000 }
+    ]
+  },
+  {
+    nombre: 'fideos2',
+    titulo: 'Fetuccini de espinaca',
+    descripcion: 'Color natural, sabor suave y fresco',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'fideos',
+    opciones: [
+      { desc: '1kg', precio: 3800 },
+      { desc: '1/2kg', precio: 2000 },
+      { desc: '250g', precio: 1100 }
+    ]
+  },
+  {
+    nombre: 'fideos3',
+    titulo: 'Ñoquis de papa',
+    descripcion: 'Esponjosos, hechos el día anterior',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'fideos',
+    opciones: [
+      { desc: '1kg', precio: 3200 },
+      { desc: '1/2kg', precio: 1700 },
+      { desc: '250g', precio: 900 }
+    ]
+  },
+
+  // --- PIZZAS ---
+  {
+    nombre: 'pizzas1',
+    titulo: 'Pizza muzzarella',
+    descripcion: 'Masa casera, salsa de tomate y mucho queso',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'pizzas',
+    opciones: [
+      { desc: '1 unidad (grande)', precio: 6000 },
+      { desc: '1/2 unidad', precio: 3200 }
+    ]
+  },
+  {
+    nombre: 'pizzas2',
+    titulo: 'Pizza fugazzeta',
+    descripcion: 'Cebolla, aceitunas y queso gratinado',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'pizzas',
+    opciones: [
+      { desc: '1 unidad (grande)', precio: 6500 },
+      { desc: '1/2 unidad', precio: 3500 }
+    ]
+  },
+  {
+    nombre: 'pizzas3',
+    titulo: 'Pizza de jamón y morrones',
+    descripcion: 'Clásica y bien generosa',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'pizzas',
+    opciones: [
+      { desc: '1 unidad (grande)', precio: 7000 },
+      { desc: '1/2 unidad', precio: 3800 }
+    ]
+  },
+
+  // --- FOCACCIAS ---
+  {
+    nombre: 'focaccias1',
+    titulo: 'Focaccia de romero y sal gruesa',
+    descripcion: 'Clásica italiana, crujiente por fuera y esponjosa por dentro',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'focaccias',
+    opciones: [
+      { desc: '1 unidad', precio: 4500 },
+      { desc: '1/2 unidad', precio: 2500 }
+    ]
+  },
+  {
+    nombre: 'focaccias2',
+    titulo: 'Focaccia de cebolla caramelizada',
+    descripcion: 'Dulce y salada, perfecta para compartir',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'focaccias',
+    opciones: [
+      { desc: '1 unidad', precio: 5000 },
+      { desc: '1/2 unidad', precio: 2700 }
+    ]
+  },
+  {
+    nombre: 'focaccias3',
+    titulo: 'Focaccia de tomates cherry y albahaca',
+    descripcion: 'Fresca, aromática, ideal para picada',
+    imagen: 'img/sorrentinos-mp.webp',
+    categoria: 'focaccias',
+    opciones: [
+      { desc: '1 unidad', precio: 5200 },
+      { desc: '1/2 unidad', precio: 2800 }
+    ]
   }
+
 ];
 
 // ============================================================
@@ -87,22 +198,23 @@ const categoriasHome = [
     id: 'pizzas',
     label: 'Pizzas',
     emoji: '🍕',
-    imagen: 'img/Pizza-espepecial.png'
+    imagen: 'img/Pizza-especial.png'
   },
   {
     id: 'focaccias',
-    label: 'Malfattis',
+    label: 'Focaccias',
     emoji: '🫓',
-    imagen: 'img/Malfatis-verdura.png'
+    imagen: 'img/Focaccia.png.png'
   }
 ];
 
 // Categorías para los filtros dentro de la página de productos
 const categoriasFiltro = [
   { id: 'todas', label: 'Todas' },
-  { id: 'carne', label: '🥩 Carne' },
-  { id: 'verdura', label: '🥬 Verdura' },
-  { id: 'queso', label: '🧀 Queso' }
+  { id: 'sorrentinos', label: '🍝 Sorrentinos' },
+  { id: 'fideos', label: '🍜 Fideos' },
+  { id: 'pizzas', label: '🍕 Pizzas' },
+  { id: 'focaccias', label: '🫓 Focaccias' }
 ];
 
 // ============================================================
