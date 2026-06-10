@@ -398,7 +398,7 @@ function renderProductos(categoriaInicial = null) {
   btnVolver.type = 'button';
   btnVolver.className = 'btn-secundario btn-volver';
   btnVolver.innerHTML = '← Volver';
-  btnVolver.addEventListener('click', () => window.location.href = '/');
+  btnVolver.addEventListener('click', () => history.back());
   form.parentElement.insertBefore(btnVolver, form.previousElementSibling);
 
   renderFiltros();
@@ -549,7 +549,7 @@ TOTAL: ${formatPrecio(total)}</pre>
 
     localStorage.setItem('pedidoEnviado', 'true');
     window.open(link, '_blank');
-    window.location.href = '/';
+    setTimeout(() => window.location.href = '/', 300);
   });
 }
 
