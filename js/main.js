@@ -158,13 +158,30 @@ const categoriasFiltro = [
 // ============================================================
 // UTILIDADES
 // ============================================================
-
+ 
 const formatPrecio = (precio) => `$${precio.toLocaleString('es-AR')}`;
-
+ 
 const getCarrito = () => JSON.parse(localStorage.getItem('carrito')) || [];
-
-const guardarCarrito = (data) => localStorage.setItem('carrito', JSON.stringify(data));
-
+ 
+const EXPIRY_MINUTOS = 10;
+ 
+const guardarCarrito = (data) => {
+  localStorage.setItem('carrito', JSON.stringify(data));
+  localStorage.setItem('carritoTimestamp', Date.now());
+};
+ 
+const carritoExpirado = () => {
+  const timestamp = localStorage.getItem('carritoTimestamp');
+  if (!timestamp) return false;
+  const minutos = (Date.now() - parseInt(timestamp)) / 1000 / 60;
+  return minutos > EXPIRY_MINUTOS;
+};
+ 
+const limpiarCarrito = () => {
+  localStorage.removeItem('carrito');
+  localStorage.removeItem('carritoTimestamp');
+};
+ 
 const buildDireccion = ({ calle, numero, esEdificio, piso, portero }) => {
   let dir = `${calle} ${numero}`;
   if (esEdificio) {
@@ -173,7 +190,7 @@ const buildDireccion = ({ calle, numero, esEdificio, piso, portero }) => {
   }
   return dir;
 };
-
+ 
 const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, total }) => {
   let mensaje = `Hola! Soy ${nombre} (${telefono}) y quiero hacer un pedido:\n\n${resumen}\nTOTAL: ${formatPrecio(total)}\n\n📍 Dirección de entrega: ${direccion}\n💳 Método de pago: ${pago}`;
   if (pago === 'Transferencia') {
@@ -182,25 +199,25 @@ const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, tota
   mensaje += '\n\n¡Gracias!';
   return mensaje;
 };
-
+ 
 // ============================================================
 // LÓGICA DEL FORMULARIO DE PRODUCTOS
 // ============================================================
-
+ 
 function calcularTotal() {
   const checked = document.querySelectorAll('input[type="checkbox"][name]:checked');
   let total = 0;
-
+ 
   checked.forEach((cb) => {
     const precio = parseInt(cb.dataset.precio);
     const cantidad = parseInt(cb.parentElement.querySelector('.cantidad').value) || 1;
     total += precio * cantidad;
   });
-
+ 
   const totalEl = document.getElementById('total');
   if (totalEl) totalEl.textContent = `Total: ${formatPrecio(total)}`;
 }
-
+ 
 function crearCheckboxLabel(producto, opcion) {
   const label = document.createElement('label');
   label.innerHTML = `
@@ -211,23 +228,23 @@ function crearCheckboxLabel(producto, opcion) {
   `;
   return label;
 }
-
+ 
 function crearTarjetaProducto(producto) {
   const div = document.createElement('div');
   div.className = 'producto';
   div.dataset.categoria = producto.categoria;
-
+ 
   if (producto.disponible === false) {
     div.classList.add('producto-no-disponible');
   }
-
+ 
   const img = document.createElement('img');
   img.src = producto.imagen;
   img.alt = producto.titulo;
-
+ 
   const info = document.createElement('div');
   info.style.flex = '1';
-
+ 
   if (producto.disponible === false) {
     info.innerHTML = `
       <strong>${producto.titulo}</strong><br>
@@ -240,12 +257,12 @@ function crearTarjetaProducto(producto) {
       info.appendChild(crearCheckboxLabel(producto, op));
     });
   }
-
+ 
   div.appendChild(img);
   div.appendChild(info);
   return div;
 }
-
+ 
 function agregarEventosCheckbox(checkbox) {
   checkbox.addEventListener('change', () => {
     const cantidadInput = checkbox.parentElement.querySelector('.cantidad');
@@ -258,8 +275,12 @@ function agregarEventosCheckbox(checkbox) {
     calcularTotal();
   });
 }
-
+ 
 function cargarSeleccionGuardada() {
+  if (carritoExpirado()) {
+    limpiarCarrito();
+    return;
+  }
   getCarrito().forEach(item => {
     document.querySelectorAll(`input[type="checkbox"][name="${item.nombre}"]`).forEach(cb => {
       if (cb.value === item.descripcion) {
@@ -269,13 +290,13 @@ function cargarSeleccionGuardada() {
     });
   });
 }
-
+ 
 function mostrarMensajePedidoEnviado(contenedor) {
   const msg = document.createElement('div');
   msg.className = 'mensaje-exito';
   msg.textContent = '✅ ¡Tu pedido fue enviado con éxito!';
   contenedor.parentElement.insertBefore(msg, contenedor);
-
+ 
   localStorage.removeItem('carrito');
   setTimeout(() => {
     msg.remove();
@@ -283,47 +304,47 @@ function mostrarMensajePedidoEnviado(contenedor) {
     window.location.reload();
   }, 3000);
 }
-
+ 
 // ============================================================
 // FILTROS POR CATEGORÍA
 // ============================================================
-
+ 
 function renderFiltros() {
   const filtrosDiv = document.getElementById('filtros');
   if (!filtrosDiv) return;
-
+ 
   categoriasFiltro.forEach(cat => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = cat.label;
     btn.dataset.categoria = cat.id;
     btn.className = cat.id === 'todas' ? 'filtro-btn activo' : 'filtro-btn';
-
+ 
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
       btn.classList.add('activo');
       filtrarProductos(cat.id);
     });
-
+ 
     filtrosDiv.appendChild(btn);
   });
 }
-
+ 
 function filtrarProductos(categoriaId) {
   document.querySelectorAll('.producto').forEach(card => {
     const visible = categoriaId === 'todas' || card.dataset.categoria === categoriaId;
     card.style.display = visible ? 'flex' : 'none';
   });
 }
-
+ 
 // ============================================================
 // RENDER PANTALLA DE INICIO
 // ============================================================
-
+ 
 function renderCategoriasHome() {
   const grid = document.getElementById('categoriasGrid');
   if (!grid) return;
-
+ 
   categoriasHome.forEach(cat => {
     const card = document.createElement('div');
     card.className = 'categoria-card';
@@ -336,15 +357,15 @@ function renderCategoriasHome() {
     grid.appendChild(card);
   });
 }
-
+ 
 // ============================================================
 // RENDER PRINCIPAL - PÁGINA INDEX
 // ============================================================
-
+ 
 function renderProductos(categoriaInicial = null) {
   const form = document.getElementById('formProductos');
   form.innerHTML = '';
-
+ 
   // Botón volver al inicio
   const btnVolver = document.createElement('button');
   btnVolver.type = 'button';
@@ -352,20 +373,20 @@ function renderProductos(categoriaInicial = null) {
   btnVolver.innerHTML = '← Volver';
   btnVolver.addEventListener('click', () => history.back());
   form.parentElement.insertBefore(btnVolver, form.previousElementSibling);
-
+ 
   renderFiltros();
-
+ 
   productos.forEach(producto => {
     const card = crearTarjetaProducto(producto);
     form.appendChild(card);
   });
-
+ 
   document.querySelectorAll('.cantidad').forEach(input => {
     input.addEventListener('input', calcularTotal);
   });
-
+ 
   document.querySelectorAll('input[type="checkbox"][name]').forEach(agregarEventosCheckbox);
-
+ 
   // Aplicar filtro inicial si viene de la home
   if (categoriaInicial) {
     const btnActivo = document.querySelector(`.filtro-btn[data-categoria="${categoriaInicial}"]`);
@@ -375,52 +396,52 @@ function renderProductos(categoriaInicial = null) {
       filtrarProductos(categoriaInicial);
     }
   }
-
+ 
   cargarSeleccionGuardada();
   calcularTotal();
 }
-
+ 
 function irAlCarrito() {
   const checked = document.querySelectorAll('input[type="checkbox"][name]:checked');
-
+ 
   if (checked.length === 0) {
     alert('Por favor, seleccioná al menos un producto.');
     return;
   }
-
+ 
   const seleccionados = Array.from(checked).map(cb => ({
     nombre: cb.name,
     descripcion: cb.dataset.descripcion,
     precio: parseInt(cb.dataset.precio),
     cantidad: parseInt(cb.parentElement.querySelector('.cantidad').value) || 1
   }));
-
+ 
   guardarCarrito(seleccionados);
   window.location.href = '/carrito';
 }
-
+ 
 // ============================================================
 // RENDER CARRITO
 // ============================================================
-
+ 
 function buildResumen(carrito) {
   let total = 0;
   let resumen = '';
-
+ 
   carrito.forEach(item => {
     const subtotal = item.precio * item.cantidad;
     total += subtotal;
     resumen += `- ${item.nombre} – ${item.descripcion} x${item.cantidad} = ${formatPrecio(subtotal)}\n`;
   });
-
+ 
   return { resumen, total };
 }
-
+ 
 function renderCarrito() {
   const carrito = getCarrito();
   const contenedor = document.getElementById('carrito');
   const { resumen, total } = buildResumen(carrito);
-
+ 
   contenedor.innerHTML = `
     <div id="formCarrito">
       <div class="form-group">
@@ -456,7 +477,7 @@ function renderCarrito() {
           <label><input type="radio" name="pago" value="Transferencia"> Transferencia</label>
         </div>
         <div id="aliasBox" style="display:none;">
-            <strong>Datos para transferir:</strong><br><br>
+          <strong>Datos para transferir:</strong><br><br>
           CBU: 4530000800011848592114<br>
           Alias: pacita.cocina<br>
           Caja de ahorro en pesos: 1184859211<br>
@@ -474,18 +495,18 @@ TOTAL: ${formatPrecio(total)}</pre>
       <button type="button" onclick="window.location.href='/'" class="btn-secundario">← Volver al Menú</button>
     </div>
   `;
-
+ 
   document.querySelectorAll('input[name="pago"]').forEach(el => {
     el.addEventListener('change', () => {
       document.getElementById('aliasBox').style.display =
         el.value === 'Transferencia' && el.checked ? 'block' : 'none';
     });
   });
-
+ 
   document.getElementById('esEdificio').addEventListener('change', function () {
     document.getElementById('edificioFields').style.display = this.checked ? 'block' : 'none';
   });
-
+ 
   document.getElementById('btnEnviar').addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
@@ -495,32 +516,32 @@ TOTAL: ${formatPrecio(total)}</pre>
     const piso = esEdificio ? document.getElementById('piso').value.trim() : '';
     const portero = esEdificio ? document.getElementById('portero').value.trim() : '';
     const pago = document.querySelector('input[name="pago"]:checked').value;
-
+ 
     if (!nombre || !telefono || !calle || !numeroCalle) {
       alert('Por favor completá tu nombre, teléfono y dirección.');
       return;
     }
-
+ 
     const direccion = buildDireccion({ calle, numero: numeroCalle, esEdificio, piso, portero });
     const mensaje = buildMensajeWhatsApp({ nombre, telefono, direccion, pago, resumen, total });
-    const link = `https://wa.me/5493492338903?text=${encodeURIComponent(mensaje)}`;
-
+    const link = `https://wa.me/5493472552985?text=${encodeURIComponent(mensaje)}`;
+ 
     localStorage.setItem('pedidoEnviado', 'true');
     window.open(link, '_blank');
     setTimeout(() => window.location.href = '/', 300);
   });
 }
-
+ 
 // ============================================================
 // INICIALIZACIÓN
 // ============================================================
-
+ 
 window.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('categoriasGrid')) {
     // Si volvemos de WhatsApp, limpiamos el estado y mostramos mensaje
     if (localStorage.getItem('pedidoEnviado') === 'true') {
       localStorage.removeItem('pedidoEnviado');
-      localStorage.removeItem('carrito');
+      limpiarCarrito();
       const msg = document.createElement('div');
       msg.className = 'mensaje-exito';
       msg.textContent = '✅ ¡Tu pedido fue enviado con éxito! Nos contactamos pronto.';
@@ -528,12 +549,13 @@ window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => msg.remove(), 4000);
     }
     renderCategoriasHome();
-
+ 
   } else if (document.getElementById('formProductos')) {
     const params = new URLSearchParams(window.location.search);
     renderProductos(params.get('cat'));
-
+ 
   } else if (document.getElementById('carrito')) {
     renderCarrito();
   }
 });
+ 
