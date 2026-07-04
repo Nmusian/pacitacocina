@@ -176,7 +176,9 @@ const buildDireccion = ({ calle, numero, esEdificio, piso, portero }) => {
 
 const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, total }) => {
   let mensaje = `Hola! Soy ${nombre} (${telefono}) y quiero hacer un pedido:\n\n${resumen}\nTOTAL: ${formatPrecio(total)}\n\n📍 Dirección de entrega: ${direccion}\n💳 Método de pago: ${pago}`;
-  if (pago === 'Transferencia') mensaje += '\nAlias: pacita.cocina';
+  if (pago === 'Transferencia') {
+    mensaje += `\n\n📋 Datos para transferir:\nCBU: 4530000800011848592114\nAlias: pacita.cocina\nCaja de ahorro en pesos: 1184859211\nTitular: Maria Victoria Alvarez Medina\nCUIL: 27432747668\nNaranja X`;
+  }
   mensaje += '\n\n¡Gracias!';
   return mensaje;
 };
@@ -454,7 +456,13 @@ function renderCarrito() {
           <label><input type="radio" name="pago" value="Transferencia"> Transferencia</label>
         </div>
         <div id="aliasBox" style="display:none;">
-          <strong>Alias para transferir:</strong> pacita.cocina
+            <strong>Datos para transferir:</strong><br><br>
+          CBU: 4530000800011848592114<br>
+          Alias: pacita.cocina<br>
+          Caja de ahorro en pesos: 1184859211<br>
+          Titular: Maria Victoria Alvarez Medina<br>
+          CUIL: 27432747668<br>
+          Naranja X
         </div>
       </div>
       <div class="form-group">
