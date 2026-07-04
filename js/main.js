@@ -6,99 +6,100 @@ const productos = [
 
   // --- SORRENTINOS ---
   {
-    nombre: 'sorrentinos1',
+    nombre: 'sorrentinos de ricota y verdura ',
     titulo: 'Sorrentinos de Ricota y Verdura',
     descripcion: 'Relleno suave y fresco, masa casera',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/ricotaverduras.png',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+     { desc: '1kg (32 unid.)', precio: 34000 }, 
+     { desc: '1/2kg (16 unid.)', precio: 18000 }
+      
     ]
   },
   {
-    nombre: 'sorrentinos2',
+    nombre: 'sorrentinos de pollo y verdura',
     titulo: 'Sorrentinos de Pollo y Verdura',
     descripcion: 'Relleno jugoso con pollo y vegetales',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/pollo-verduras.jpeg',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+     { desc: '1kg (32 unid.)', precio: 34000 }, 
+     { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
   {
-    nombre: 'sorrentinos3',
+    nombre: 'sorrentinos de carne y verdura',
     titulo: 'Sorrentinos de Carne y Verdura',
     descripcion: 'Relleno de carne con vegetales salteados',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/carneyverdura.jpeg',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+      { desc: '1kg (32 unid.)', precio: 34000 }, 
+      { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
   {
-    nombre: 'sorrentinos4',
+    nombre: 'sorrentinos de berenjena y muzza',
     titulo: 'Sorrentinos de Berenjena Asada y Muzza',
     descripcion: 'Combinación suave y cremosa',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/berenjena.png',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+      { desc: '1kg (32 unid.)', precio: 34000 }, 
+      { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
   {
-    nombre: 'sorrentinos5',
+    nombre: 'sorrentinos de calabaza y muzza',
     titulo: 'Sorrentinos de Calabaza y Muzza',
     descripcion: 'Dulce y cremoso, un clásico de temporada',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/calabaza.webp',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+      { desc: '1kg (32 unid.)', precio: 34000 }, 
+      { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
   {
-    nombre: 'sorrentinos6',
+    nombre: 'sorrentinos de jamon y queso',
     titulo: 'Sorrentinos de Jamón y Queso',
     descripcion: 'El favorito de siempre',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/SorrentinosJYQ.webp',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+      { desc: '1kg (32 unid.)', precio: 34000 }, 
+      { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
   {
-    nombre: 'sorrentinos7',
+    nombre: 'sorrentinos de ricota y cebolla caram',
     titulo: 'Sorrentinos de Ricota y Cebolla Caramelizada',
     descripcion: 'Dulzor natural con ricota cremosa',
-    imagen: 'img/sorrentinos-mp - copia.webp',
+    imagen: 'img/cebolla.jpg',
     categoria: 'sorrentinos',
     opciones: [
-      { desc: '1/2kg (16 unid.)', precio: 18000 },
-      { desc: '1kg (32 unid.)', precio: 34000 }
+      { desc: '1kg (32 unid.)', precio: 34000 }, 
+      { desc: '1/2kg (16 unid.)', precio: 18000 }
     ]
   },
 
   // --- MALFATTIS ---
   {
-    nombre: 'malfattis1',
+    nombre: 'malfattis de calabaza y muzza',
     titulo: 'Malfattis de Calabaza y Mozzarella',
     descripcion: 'Suaves y esponjosos, sabor dulce y cremoso',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/malfaticalabaza.jpeg',
     categoria: 'malfattis',
     opciones: [
       { desc: '400g (16 unid. aprox.)', precio: 12000 }
     ]
   },
   {
-    nombre: 'malfattis2',
+    nombre: 'malfattis de ricota y espinaca',
     titulo: 'Malfattis de Ricota y Espinaca',
     descripcion: 'Clásicos y deliciosos, ideales con salsa de tomate',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/malfativerdura.webp',
     categoria: 'malfattis',
     opciones: [
       { desc: '400g (16 unid. aprox.)', precio: 12000 }
@@ -107,10 +108,10 @@ const productos = [
 
   // --- PREPIZZAS ---
   {
-    nombre: 'prepizzas1',
+    nombre: 'prepizzas',
     titulo: 'Prepizza Casera',
     descripcion: 'Masa lista para completar a tu gusto',
-    imagen: 'img/sorrentinos-mp.webp',
+    imagen: 'img/pizza.png',
     categoria: 'prepizzas',
     disponible: false,
     opciones: [
@@ -130,19 +131,19 @@ const categoriasHome = [
     id: 'sorrentinos',
     label: 'Sorrentinos',
     emoji: '🍝',
-    imagen: 'img/sorrentinos-mp.webp'
+    imagen: 'img/sorrentinos.jpeg'
   },
   {
     id: 'malfattis',
     label: 'Malfattis',
     emoji: '🥟',
-    imagen: 'img/sorrentinos-mp.webp'   // reemplazar con imagen real
+    imagen: 'img/malfattis.jpeg'   // reemplazar con imagen real
   },
   {
     id: 'prepizzas',
     label: 'Prepizzas',
     emoji: '🍕',
-    imagen: 'img/sorrentinos-mp.webp'   // reemplazar con imagen real
+    imagen: 'img/prepizza.png'   // reemplazar con imagen real
   }
 ];
 

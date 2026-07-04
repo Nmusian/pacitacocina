@@ -5,8 +5,8 @@
 :root {
   --color-primario: #a8dadc;
   --color-primario-hover: #82cbb7;
-  --color-fondo-card: #fffafc;
-  --color-borde-card: #f0d9e7;
+  --color-fondo-card: #FBDE9C;
+  --color-borde-card: #f99256;
   --color-texto: #333;
   --color-texto-suave: #666;
   --color-exito: #2e7d5e;
@@ -63,7 +63,7 @@ hr {
    ============================================================ */
 
 header {
-  background: linear-gradient(135deg, #f8d3e3, #d0e8f2);
+  background: linear-gradient(135deg, #ea9dae, #d0e8f2);
   padding: 5px 0;
   text-align: center;
   border-bottom: 3px solid #e0e0e0;
@@ -177,7 +177,7 @@ header img.logo {
 }
 
 .filtro-btn {
-  background-color: #f0f0f0;
+  background-color: #FBDE9C;
   color: var(--color-texto);
   border: 2px solid transparent;
   padding: 8px 18px;
