@@ -163,7 +163,7 @@ const formatPrecio = (precio) => `$${precio.toLocaleString('es-AR')}`;
  
 const getCarrito = () => JSON.parse(localStorage.getItem('carrito')) || [];
  
-const EXPIRY_MINUTOS = 10;
+const EXPIRY_MINUTOS = 5;
  
 const guardarCarrito = (data) => {
   localStorage.setItem('carrito', JSON.stringify(data));
