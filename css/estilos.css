@@ -355,6 +355,23 @@ pre {
   color: #444;
 }
 
+.producto-no-disponible {
+  opacity: 0.6;
+  filter: grayscale(40%);
+  pointer-events: none;
+}
+
+.badge-proximamente {
+  display: inline-block;
+  background-color: #f0e6c8;
+  color: #8a6500;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid #e0cc90;
+}
+
 /* ============================================================
    DIRECCIÓN
    ============================================================ */

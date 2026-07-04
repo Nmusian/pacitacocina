@@ -112,6 +112,7 @@ const productos = [
     descripcion: 'Masa lista para completar a tu gusto',
     imagen: 'img/sorrentinos-mp.webp',
     categoria: 'prepizzas',
+    disponible: false,
     opciones: [
       { desc: '2 unidades', precio: 4000 }
     ]
@@ -213,17 +214,29 @@ function crearTarjetaProducto(producto) {
   div.className = 'producto';
   div.dataset.categoria = producto.categoria;
 
+  if (producto.disponible === false) {
+    div.classList.add('producto-no-disponible');
+  }
+
   const img = document.createElement('img');
   img.src = producto.imagen;
   img.alt = producto.titulo;
 
   const info = document.createElement('div');
   info.style.flex = '1';
-  info.innerHTML = `<strong>${producto.titulo}</strong><br><small>${producto.descripcion}</small><br><br>`;
 
-  producto.opciones.forEach((op) => {
-    info.appendChild(crearCheckboxLabel(producto, op));
-  });
+  if (producto.disponible === false) {
+    info.innerHTML = `
+      <strong>${producto.titulo}</strong><br>
+      <small>${producto.descripcion}</small><br><br>
+      <span class="badge-proximamente">🕐 Próximamente</span>
+    `;
+  } else {
+    info.innerHTML = `<strong>${producto.titulo}</strong><br><small>${producto.descripcion}</small><br><br>`;
+    producto.opciones.forEach((op) => {
+      info.appendChild(crearCheckboxLabel(producto, op));
+    });
+  }
 
   div.appendChild(img);
   div.appendChild(info);
