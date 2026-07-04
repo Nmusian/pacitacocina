@@ -176,7 +176,7 @@ const buildDireccion = ({ calle, numero, esEdificio, piso, portero }) => {
 
 const buildMensajeWhatsApp = ({ nombre, telefono, direccion, pago, resumen, total }) => {
   let mensaje = `Hola! Soy ${nombre} (${telefono}) y quiero hacer un pedido:\n\n${resumen}\nTOTAL: ${formatPrecio(total)}\n\n📍 Dirección de entrega: ${direccion}\n💳 Método de pago: ${pago}`;
-  if (pago === 'Transferencia') mensaje += '\nAlias: alias.negocio.mp';
+  if (pago === 'Transferencia') mensaje += '\nAlias: pacita.cocina';
   mensaje += '\n\n¡Gracias!';
   return mensaje;
 };
@@ -454,7 +454,7 @@ function renderCarrito() {
           <label><input type="radio" name="pago" value="Transferencia"> Transferencia</label>
         </div>
         <div id="aliasBox" style="display:none;">
-          <strong>Alias para transferir:</strong> alias.negocio.mp
+          <strong>Alias para transferir:</strong> pacita.cocina
         </div>
       </div>
       <div class="form-group">
@@ -495,7 +495,7 @@ TOTAL: ${formatPrecio(total)}</pre>
 
     const direccion = buildDireccion({ calle, numero: numeroCalle, esEdificio, piso, portero });
     const mensaje = buildMensajeWhatsApp({ nombre, telefono, direccion, pago, resumen, total });
-    const link = `https://wa.me/5493472552985?text=${encodeURIComponent(mensaje)}`;
+    const link = `https://wa.me/5493492338903?text=${encodeURIComponent(mensaje)}`;
 
     localStorage.setItem('pedidoEnviado', 'true');
     window.open(link, '_blank');
